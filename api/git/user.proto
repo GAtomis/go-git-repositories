@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package api.git;
+
+option go_package = "go-git-repositories/api/git;git";
+option java_multiple_files = true;
+option java_package = "api.git";
+
+service User {
+//	rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
+//	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
+//	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
+//	rpc GetUser (GetUserRequest) returns (GetUserReply);
+//	rpc ListUser (ListUserRequest) returns (ListUserReply);
+		rpc Login (LoginRequest) returns (LoginReply);
+}
+message LoginRequest {
+
+
+}
+message LoginReply {
+
+
+}
+
+//message CreateUserRequest {}
+//message CreateUserReply {}
+//
+//message UpdateUserRequest {}
+//message UpdateUserReply {}
+//
+//message DeleteUserRequest {}
+//message DeleteUserReply {}
+//
+//message GetUserRequest {}
+//message GetUserReply {}
+//
+//message ListUserRequest {}
+//message ListUserReply {}
