@@ -8,5 +8,9 @@ type RepoBasic struct {
 	Identity string `gorm:"column:identity;type:varchar(36);"json:"identity"`
 	Name     string `gorm:"column:name;type:varchar(255);" json:"name" `
 	Desc     string `gorm:"column:name;type:varchar(255);" json:"desc" `
-	Star     uint   `gorm:"column:desc;type:int(11);" json:"star" `
+	Star     int    `gorm:"column:desc;type:int(11);" json:"star" `
+}
+
+func (table *RepoBasic) TableName() string {
+	return "repo_basic"
 }
