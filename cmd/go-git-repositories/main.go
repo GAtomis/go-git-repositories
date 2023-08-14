@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"go-git-repositories/models"
 	"os"
 
 	"go-git-repositories/internal/conf"
@@ -72,6 +73,12 @@ func main() {
 	var bc conf.Bootstrap
 	if err := c.Scan(&bc); err != nil {
 		panic(err)
+	}
+
+	db, _ := models.GAA_SQL.StartSQL()
+	if db != nil {
+		sqlDB, _ := db.DB()
+		defer sqlDB.Close()
 	}
 
 	app, cleanup, err := wireApp(bc.Server, bc.Data, logger)

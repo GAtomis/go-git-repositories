@@ -1,9 +1,12 @@
 package server
 
 import (
+	"github.com/go-kratos/kratos/v2/middleware/selector"
+	"go-git-repositories/api/git"
 	v1 "go-git-repositories/api/helloworld/v1"
 	"go-git-repositories/internal/conf"
 	"go-git-repositories/internal/service"
+	"go-git-repositories/middleware"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
@@ -15,6 +18,8 @@ func NewHTTPServer(c *conf.Server, greeter *service.GreeterService, logger log.L
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
+			//只会对login接口进行鉴权
+			selector.Server(middleware.Auth()).Path("/api.git.User/Login").Build(),
 		),
 	}
 	if c.Http.Network != "" {
@@ -28,5 +33,6 @@ func NewHTTPServer(c *conf.Server, greeter *service.GreeterService, logger log.L
 	}
 	srv := http.NewServer(opts...)
 	v1.RegisterGreeterHTTPServer(srv, greeter)
+	git.RegisterUserHTTPServer(srv, service.NewUserService())
 	return srv
 }
